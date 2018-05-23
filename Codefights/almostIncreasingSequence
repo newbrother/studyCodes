@@ -1,0 +1,67 @@
+//https://codefights.com/arcade/intro/level-2/2mxbGwLzvkTCKAJMG
+
+// Definition for arrays:
+// typedef struct arr_##name {
+//   int size;
+//   type *arr;
+// } arr_##name;
+//
+// arr_##name alloc_arr_##name(int len) {
+//   arr_##name a = {len, len > 0 ? malloc(sizeof(type) * len) : NULL};
+//   return a;
+// }
+//
+//
+bool almostIncreasingSequence(arr_integer sequence) {
+    
+    int checker=0;
+    int x=-1000000;
+    
+    if(sequence.size <= 2){
+        return true;
+    }
+    else{
+        if(sequence.arr[0]>=sequence.arr[1]){
+            x=sequence.arr[1];
+            for(int i=2;i<sequence.size;i++){
+                if(x<sequence.arr[i]){
+                    x=sequence.arr[i];
+                }
+                else{
+                    return false;
+                }
+            }
+            return true;
+        }
+        
+        else{
+            x=sequence.arr[1];
+            for(int i=2;i<sequence.size;i++){
+                if(checker==1){
+                    if(x<sequence.arr[i]){
+                        x=sequence.arr[i];
+                    }
+                    else{
+                        return false;
+                    }
+                }
+                else{
+                    if(x<sequence.arr[i]){
+                        x=sequence.arr[i];
+                    }
+                    else{
+                        checker++;
+                        if(sequence.arr[i-2]<sequence.arr[i]){
+                            x=sequence.arr[i];
+                        }
+                    }
+                }
+            
+            }
+            return true;
+        }
+        
+        return false;
+    }
+    
+}
