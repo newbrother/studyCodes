@@ -1,0 +1,11 @@
+//https://codefights.com/arcade/intro/level-2/yuGuHvcCaFCKk56rJ
+
+int shapeArea(int n) {
+    if(n==1){
+        return 1;
+    }
+    else{
+        return 4*(n-1) + shapeArea(n-1);
+    }
+}
+//1x4 , 2x4 , 3x4, 4x4... => nx4
