@@ -1,2 +1,33 @@
 //https://codefights.com/arcade/intro/level-2/xskq4ZxLyqQMCLshr
 
+// Definition for arrays:
+// typedef struct arr_##name {
+//   int size;
+//   type *arr;
+// } arr_##name;
+//
+// arr_##name alloc_arr_##name(int len) {
+//   arr_##name a = {len, len > 0 ? malloc(sizeof(type) * len) : NULL};
+//   return a;
+// }
+//
+//
+
+int matrixElementsSum(arr_arr_integer matrix) {
+    int sum=0;
+    int row = matrix.size;
+    int col = matrix.arr[0].size;
+    int temp=0;
+    //printf("%d %d",row,col);
+    
+    for(int i=0;i<row;i++){
+        for(int j=0;j<col;j++){
+            temp = matrix.arr[i].arr[j];
+            sum += temp;
+            if(temp==0 && i!=row-1){
+                matrix.arr[i+1].arr[j]=0;
+            }
+        }    
+    }
+    return sum;
+}
