@@ -1,0 +1,23 @@
+//https://codefights.com/arcade/intro/level-2/xzKiBHjhoinnpdh6m
+
+// Definition for arrays:
+// typedef struct arr_##name {
+//   int size;
+//   type *arr;
+// } arr_##name;
+//
+// arr_##name alloc_arr_##name(int len) {
+//   arr_##name a = {len, len > 0 ? malloc(sizeof(type) * len) : NULL};
+//   return a;
+// }
+//
+//
+int adjacentElementsProduct(arr_integer inputArray) {
+    int current=0;
+    int max=-1000;
+    for(int i=1;i<inputArray.size;i++){
+        current = inputArray.arr[i-1] * inputArray.arr[i];
+        if(current > max) max = current;
+    }
+    return max;
+}
