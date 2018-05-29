@@ -1,0 +1,40 @@
+//http://codeup.kr/JudgeOnline/problem.php?id=1098
+
+
+#include <stdio.h>
+// codeup 1098번 , [기초-종합+배열] 설탕과자 뽑기
+int main(int argc, const char * argv[]) {
+    
+    int w,h;
+    int matrix[101][101]={0};
+    int n;
+    scanf("%d %d",&w,&h);
+    scanf("%d",&n);
+    
+    for(int i=0;i<n;i++){
+        int l,d,x,y;
+        scanf("%d %d %d %d",&l,&d,&x,&y);
+        if(d==0){
+            for(int j=0;j<l;j++){
+                matrix[y][x]=1;
+                y++;
+            }
+        }else{
+            for(int j=0;j<l;j++){
+                matrix[y][x]=1;
+                x++;
+            }
+        }
+    }
+    
+    for(int i=1;i<=w;i++){
+        for(int j=1;j<= h;j++){
+            printf("%d ",matrix[j][i]);
+        }
+        printf("\n");
+    }
+    
+    return 0;
+}
+
+
