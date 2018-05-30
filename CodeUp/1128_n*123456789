@@ -1,5 +1,17 @@
 //http://codeup.kr/JudgeOnline/problem.php?id=1128
 //1128 : n * 123456789 문제
+//힘들게 풀었는데 간단한 정답코드가 있어서 추가
+
+#include<stdio.h>
+int main()
+{
+    int n;
+    scanf("%d",&n);
+    printf("%lld",n*123456789LL);
+ 
+}
+
+//-----------아래는 고생한 코드
 
 #include <stdio.h>
 int main(int argc, const char * argv[]) {
