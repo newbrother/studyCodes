@@ -1,0 +1,127 @@
+// Definition for arrays:
+// typedef struct arr_##name {
+//   int size;
+//   type *arr;
+// } arr_##name;
+//
+// arr_##name alloc_arr_##name(int len) {
+//   arr_##name a = {len, len > 0 ? malloc(sizeof(type) * len) : NULL};
+//   return a;
+// }
+//
+//
+int terraformMars(arr_integer elevations) {
+    int count=0;
+    int check=0;
+    
+    if(elevations.size >= 1){
+        int max=elevations.arr[0];
+        for(int i=1;i<elevations.size;i++){
+            if(max < elevations.arr[i]){
+                check=0;
+                break;
+            }
+            else{ check = 1;}
+        }
+        
+    }
+    
+    for(int i=0;i<elevations.size-2;i++){
+        if(elevations.arr[i]>elevations.arr[i+1] && elevations.arr[i+1]<elevations.arr[i+2]){
+            if(check==0 && (elevations.arr[i]>elevations.arr[i+1] && elevations.arr[i]>elevations.arr[i+2])){
+            elevations.arr[i]=elevations.arr[i+1];
+            }
+            else if(check==1 && (elevations.arr[i+2]>elevations.arr[i+1] && elevations.arr[i+2]>elevations.arr[i])){
+            elevations.arr[i+2]=elevations.arr[i+1];
+            }
+            else{
+                elevations.arr[i+1]=elevations.arr[i];
+                
+            }
+            count++;
+        }
+        if(check==0 && elevations.arr[i] > elevations.arr[i+1] ) {
+            check++;
+        }
+        if(check==1 && ( elevations.arr[i+1] < elevations.arr[i+2])){
+            elevations.arr[i+2] = elevations.arr[i+1];
+            count++;
+        }
+    }
+    
+    //for(int i=0;i<elevations.size;i++)
+    //    printf("%d ",elevations.arr[i]);
+    
+    return elevations.size - count;
+}
+
+
+
+
+
+----------------------------------------------------------------
+
+
+// Definition for arrays:
+// typedef struct arr_##name {
+//   int size;
+//   type *arr;
+// } arr_##name;
+//
+// arr_##name alloc_arr_##name(int len) {
+//   arr_##name a = {len, len > 0 ? malloc(sizeof(type) * len) : NULL};
+//   return a;
+// }
+//
+//
+int terraformMars(arr_integer elevations) {
+    int count=0;
+    int check=0;
+    
+    if(elevations.size > 1){
+        int max=elevations.arr[0];
+        for(int i=1;i<elevations.size;i++){
+            if(max < elevations.arr[i]){
+                check=0;
+                break;
+            }
+            else{ check = 1;}
+        }
+        //code here
+        for(int i=0;i<elevations.size-2;i++){
+            if(check==0){
+                if(elevations.arr[i]>elevations.arr[i+1] && elevations.arr[i+1]<elevations.arr[i+2]){
+                    elevations.arr[i+1]=elevations.arr[i];
+                    count++;
+                    //중간이 젤작으면 중간은 앞에꺼로 하자.
+                }
+                else if(elevations.arr[i]>elevations.arr[i+1] && elevations.arr[i]>elevations.arr[i+2]){   
+                    elevations.arr[i]=elevations.arr[i+1];
+                    count++;
+                    //첫번째가 제일크면 첫번째꺼는 중간껄로 하자.
+                }
+            }
+            else{//check가 1이면
+                if(elevations.arr[i]<elevations.arr[i+1] && elevations.arr[i+1]>elevations.arr[i+2]){
+                elevations.arr[i+1] = elevations.arr[i];
+                    count++;
+                }
+                else if( elevations.arr[i+1] < elevations.arr[i+2] ){
+                    elevations.arr[i+2] = elevations.arr[i+1];
+                    count++;
+                }
+            }
+        
+            if(check==0 && (elevations.arr[i] > elevations.arr[i+1]) ) {
+                check++;
+            }
+        }
+        for(int i=0;i<elevations.size;i++)
+        printf("%d ",elevations.arr[i]);
+    
+        return elevations.size - count;
+    }
+    else{
+        return elevations.size;
+    }
+}
