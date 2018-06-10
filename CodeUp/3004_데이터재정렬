@@ -1,8 +1,74 @@
 //http://codeup.kr/JudgeOnline/problem.php?id=3004
 //데이터 재정렬
 
+//퀵소트로 다시풀어봄...
 
-//시간 초과로 오답
+#include <stdio.h>
+
+void swap(int* a, int* b){
+    int tmp=*a;
+    *a=*b;
+    *b=tmp;
+}
+
+void quick_sort(int* array, int start, int end, int* count){
+    
+    if(start>=end) return;
+    
+    int mid=(start+end)/2;
+    int pivot=array[mid];
+    
+    swap(&array[start],&array[mid]);
+    swap(&count[start],&count[mid]);
+    
+    int p=start+1,q=end;
+    
+    while(1){
+        while(array[p]<=pivot){ p++; }
+        while(array[q]>pivot){ q--; }
+        
+        if(p>q) break;
+        
+        swap(&array[p],&array[q]);
+        swap(&count[p],&count[q]);
+    }
+    
+    swap(&array[start],&array[q]);
+    swap(&count[start],&count[q]);
+    
+    quick_sort(array,start,q-1,count);
+    quick_sort(array,q+1,end,count);
+}
+
+int main(int argc, const char * argv[]) {
+    int n;
+    scanf("%d",&n);
+    
+    int a[n];
+    int count[n];
+    for(int i=0;i<n;i++){
+        scanf("%d",&a[i]);
+        count[i]=i;
+    }
+    //일반적인 quicksort에 원래 위치를 기억하는 count배열도 넘김
+    quick_sort(a, 0, n-1, count);
+    
+    //count의 index와 값을 서로 바꾸어주는 배열 b를 만듬
+    int b[n];
+    for(int i=0;i<n;i++){
+        b[count[i]] = i;
+    }
+    
+    for(int i=0;i<n;i++){
+        printf("%d ",b[i]);
+    }
+    return 0;
+}
+
+
+
+
+//이 시간 초과로 오답
 #include <stdio.h>
 
 int main(int argc, const char * argv[]) {
