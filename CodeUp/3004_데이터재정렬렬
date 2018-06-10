@@ -1,0 +1,31 @@
+//http://codeup.kr/JudgeOnline/problem.php?id=3004
+//데이터 재정렬
+
+
+//시간 초과로 오답
+#include <stdio.h>
+
+int main(int argc, const char * argv[]) {
+    int n;
+    scanf("%d",&n);
+    
+    int a[n];
+    int count[n];
+    
+    for(int i=0;i<n;i++){
+        scanf("%d",&a[i]);
+        count[i]=0;
+        for(int j=0;j<i;j++){
+            if(a[j] > a[i]){
+                count[j]++;
+            }
+            else{
+                count[i]++;
+            }
+        }
+    }
+    
+    for(int i=0;i<n;i++)
+        printf("%d ",count[i]);
+    return 0;
+}
