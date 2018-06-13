@@ -1,3 +1,9 @@
+//https://codefights.com/challenge/dtBm4g59XLygEGsWQ
+//Challenge TerraformMars 
+//Execution error로 인해서 문제해결 실패
+//=> 다른 솔루션 참고해보니 분할정복 방식이라던지 C++에서 Vector를 잘활용하던지 하는 방법을 사용했다.
+//나도 학습해서 적용하는 연습을 해야겠다.
+
 // Definition for arrays:
 // typedef struct arr_##name {
 //   int size;
