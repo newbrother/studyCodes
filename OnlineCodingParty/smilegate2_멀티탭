@@ -1,0 +1,17 @@
+#include<stdio.h>
+
+
+int main()
+{
+    int n,sum=0; //n:멀티탭개수
+    scanf("%d",&n);
+    int b[n]; //멀티탭의 구수
+    
+    for(int i=0;i<n;i++){
+        scanf("%d",&b[i]);
+        sum+=b[i];
+    }
+    
+    printf("%d",sum-n+1);
+    return 0;
+}
