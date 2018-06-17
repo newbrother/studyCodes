@@ -1,0 +1,56 @@
+http://codeup.kr/JudgeOnline/problem.php?id=1369ㄹ
+1369 : 빗금 친 사각형 출력하기
+
+문제를 잘못읽고 다음과 같이 풀었다.
+내가 오해한 부분은 항상 (1,1) 기준으로 빗변으로 별을 찍는것인줄 알았는데,
+제일 윗변 기준 k의 배수마다 출력하는것이었다.
+
+
+
+#include<stdio.h>
+
+int main()
+{
+    int n,k;
+    scanf("%d %d",&n,&k);
+    int count=0;
+    for(int i=0;i<n;i++){
+        if(i==0 || i==(n-1)){
+            for(int j=1;j<=n;j++){
+                printf("*");
+            }
+        }else{
+            printf("*");
+            //앞자리 세팅
+            
+            count=k-((i-1)%k);
+            for(int a=0;a<k;a++){
+                if(count==0){
+                    count=k;
+                }
+                if(count==k){
+                    printf("*");
+                }else{
+                    printf(" ");
+                }
+                count--;
+            }
+            //뒷부분 k만큼 간격두고 찍어주기
+            for(int j=1+k;j<n-1;j++){
+                if(count==0){
+                    count=k;
+                }
+                if(count%k==0){
+                    printf("*");
+                }else{
+                    printf(" ");
+                }
+                count--;
+            }
+            printf("*");
+        }
+        printf("\n");
+    }
+    
+    return 0;
+}
