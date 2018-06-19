@@ -1,0 +1,35 @@
+https://programmers.co.kr/learn/courses/34/lessons/1874
+[YBM]k번째로 작은 수
+//2차원배열을 1차원으로 변환후 정렬을 시도했다.
+//2차원배열 그대로 정렬하거나, 더 좋은방법으로 k번째 작은수를 찾는 방법이 있을까?
+
+
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
+
+int solution(int arr[][4], int n, int k) {
+    int answer = 0;
+    int size=n*4;
+    int asc[size];
+    int i,j=0;
+    int temp=0;
+    for(i=0;i<n;i++){
+        for(j=0;j<4;j++){
+            asc[i*4+j]=arr[i][j];
+        }
+    }
+    for(i=1;i<size;i++){
+        for(j=0;j<i;j++){
+            if(asc[i] < asc[j]){
+                temp = asc[j];
+                asc[j] = asc[i];
+                asc[i] = temp;
+            }
+        }
+    }
+    
+    k--;
+    answer=asc[k];
+    return answer;
+}
