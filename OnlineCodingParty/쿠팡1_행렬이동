@@ -1,0 +1,87 @@
+https://codingparty.goorm.io/learn/exam/14620/%EC%BF%A0%ED%8C%A1/quiz/80425/%ED%96%89%EB%A0%AC-%EC%9D%B4%EB%8F%99
+행렬이동
+문자열로 숫자를 받아서 재배열해야해서 까다로웠던 문제.
+atoi 사용으로 해결했다.
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    char input[100];
+    int i,j,count=0,n=0;
+    scanf("[[%s",input);
+    int k;
+    scanf("%d",&k);
+    i=0;
+    //n구하기
+    while(input[i]!=']'){
+        n++;
+        i++;
+    }
+    n=n/2+1;
+    int r[n][n];
+    //int형으로 변환
+    for(j=0;j<n;j++){
+        for(i=0;i<n;i++){
+            r[j][i] = atoi(input+count);
+            //printf("%d\n",r[j][i]);
+            if(r[j][i]>=10){
+                count+=3;
+            }else{
+                count+=2;
+            }
+        }
+        count+=2;
+    }
+    
+    //4*(n-1)번 회전시 제자리이다.
+    k= k % (4*(n-1));
+    //k번 순환이동
+    
+    int temp=0;
+    int temp2=0;
+    
+    //순환이동하는 알고리즘
+    for(i=0;i<k;i++){
+        temp = r[0][0];
+        for(j=0;j<n-1;j++){
+            temp2 = r[0][j+1];
+            r[0][j+1]= temp;
+            temp = temp2;
+        }
+        for(j=0;j<n-1;j++){
+            temp2 = r[j+1][n-1];
+            r[j+1][n-1] = temp;
+            temp = temp2;
+        }
+        for(j=n-1;j>0;j--){
+            temp2 = r[n-1][j-1];
+            r[n-1][j-1] = temp;
+            temp = temp2;
+        }
+        for(j=n-1;j>0;j--){
+            temp2 = r[j-1][0];
+            r[j-1][0] = temp;
+            temp = temp2;
+        }
+    }
+    
+    //출력부
+    printf("[");
+    for(i=0;i<n;i++){
+        printf("[");
+        for(j=0;j<n;j++){
+            printf("%d",r[i][j]);
+            if(j!=(n-1)){
+                printf(",");
+            }
+        }
+        printf("]");
+        if(i!=(n-1)){
+            printf(",");
+        }
+    }
+    printf("]");
+    return 0;
+}
