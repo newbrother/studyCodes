@@ -1,0 +1,33 @@
+http://codeup.kr/JudgeOnline/problem.php?id=1677
+1677_종이만들기
+
+#include <stdio.h>
+
+int main() {
+    int n, m;
+    scanf("%d %d",&n, &m);
+    
+    //맨윗줄
+    printf("+");
+    for(int i=1;i<n-1;i++){
+        printf("-");
+    }
+    printf("+\n");
+    
+    //몸통부분
+    for(int i=1;i<m-1;i++){
+        printf("|");
+        for(int j=1;j<n-1;j++){
+            printf(" ");
+        }
+        printf("|\n");
+    }
+    //맨아래줄
+    printf("+");
+    for(int i=1;i<n-1;i++){
+        printf("-");
+    }
+    printf("+\n");
+    
+    return 0;
+}
