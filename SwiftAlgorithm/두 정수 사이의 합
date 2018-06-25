@@ -1,0 +1,24 @@
+https://programmers.co.kr/learn/courses/30/lessons/12912?language=swift
+함수로 입력이 넘어오는 구조이구나...착각해서 입력하는방법 공부했다. 좋은공부였다.
+
+
+func solution(_ a:Int, _ b:Int) -> Int64 {
+        var sum:Int = 0
+        if a==b{
+            sum=a
+        }
+        else if a<b{
+            for i in a...b{
+                sum += i
+            }
+        }
+        else{
+            for i in b...a{
+                sum += i
+            }
+        }
+    
+    return Int64(sum)
+}
+
+
