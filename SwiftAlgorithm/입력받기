@@ -1,0 +1,24 @@
+
+import Foundation
+
+    let a = readLine()
+    if let a = a{
+        var array = a.components(separatedBy:" ")
+        let s = Int(array[0])!
+        let e = Int(array[1])!
+        var sum:Int = 0
+        if s==e{
+            sum=s
+        }
+        else if s<e{
+            for i in s...e{
+                sum += i
+            }
+        }
+        else{
+            for i in e...s{
+                sum += i
+            }
+        }
+        print(sum)
+    }
