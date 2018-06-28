@@ -2,6 +2,19 @@
 
 스위프트로 문자열 인덱스를 가져오는것은 상당히 골치아픈 일이구나...
 
+---더간단한 코드----
+func solution(_ s:String) -> String {
+  let length = s.count
+  let halfPoint = Int(length / 2)
+  if length % 2 == 0 {
+    return String(s[String.Index(encodedOffset: halfPoint - 1)...String.Index(encodedOffset: halfPoint)])
+  } else {
+    return String(s[String.Index(encodedOffset: halfPoint)])
+  }
+}
+
+
+------내코드------
 func solution(_ s:String) -> String {
     let slength = s.count
     var num:Int = slength/2
