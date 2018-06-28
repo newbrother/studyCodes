@@ -1,0 +1,19 @@
+//https://programmers.co.kr/learn/courses/30/lessons/12903?language=swift
+
+스위프트로 문자열 인덱스를 가져오는것은 상당히 골치아픈 일이구나...
+
+func solution(_ s:String) -> String {
+    let slength = s.count
+    var num:Int = slength/2
+    if slength%2==1{
+        let findIndex = s.index(s.startIndex, offsetBy: num)
+        let find = s[findIndex]
+        return "\(find)"
+    }else{
+        let findIndex = s.index(s.startIndex, offsetBy: num-1)
+        let find1 = s[findIndex]
+        let findIndex2 = s.index(s.startIndex, offsetBy: num)
+        let find2 = s[findIndex2]
+        return "\(find1)\(find2)"
+    }
+}
