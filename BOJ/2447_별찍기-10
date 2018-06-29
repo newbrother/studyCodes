@@ -1,0 +1,40 @@
+//계속 쉬운 별찍기만 하다가 갑자기 어려워져서 깜짝놀랐다.
+//프렉탈식으로 커지는데, 중간에 빈부분을 n에 맞게 구현하는데 애먹었다.
+//더 효율적인 코드가 있어 가져왔다.
+
+#include<stdio.h>
+#define MAX 3*3*3*3*3*3*3*3
+
+char ch[MAX + 1][MAX + 1];
+
+void calc(int N, int ci, int cj) {
+	int i, j, M;
+	if (N == 1) {
+		ch[ci][cj] = '*';
+		return;
+	}
+
+	M = N / 3;
+
+	for (i = 0; i < 3; i++)
+		for (j = 0; j < 3; j++)
+			if (i != 1 || j != 1)
+				calc(M, ci+i*M, cj+j*M);
+
+}
+
+int main() {
+	int N, i, j;
+	scanf("%d", &N);
+
+	for (i = 0; i < N; i++)
+		for (j = 0; j < N; j++)
+			ch[i][j] = ' ';
+
+	calc(N, 0, 0);
+
+	for (i = 0; i < N; i++)
+			printf("%s\n", ch[i]);
+
+	return 0;
+}
