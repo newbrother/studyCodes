@@ -1,0 +1,74 @@
+//실패한채로 코딩파티가 끝이났음...ㅠㅠ거의다했는데
+
+#include <stdio.h>
+#include <string.h>    // strtok 함수가 선언된 헤더 파일
+
+int main()
+{
+    char s1[500];
+    gets(s1);
+    char *sArr[100] = { NULL, };
+    char *ptr = strtok(s1, ",");      // "," 문자를 기준으로 문자열을 자름, 포인터 반환
+    int count=0,i=0,j=0;
+
+    
+    while (ptr != NULL)               // 자른 문자열이 나오지 않을 때까지 반복
+    {
+        sArr[i] = ptr;
+        //printf("%s\n", ptr);          // 자른 문자열 출력
+        ptr = strtok(NULL, ",");      // 다음 문자열을 잘라서 포인터를 반환
+        i++;
+        count++;
+    }
+    char *aArr[count][20];
+    
+    //printf("%d\n",count);
+    
+    for (i = 0; i < count; i++) //일단 10으로 해놓음.
+    {
+            //printf("%s\n", sArr[i]);   // 문자열 포인터 배열에 인덱스로 접근하여 각 문자열 출력
+            ptr = strtok(sArr[i], " ");
+        
+            j=0;
+            while (ptr != NULL)               // 자른 문자열이 나오지 않을 때까지 반복
+            {
+                aArr[i][j] = ptr;
+                j++;
+                //printf("%s\n", ptr);          // 자른 문자열 출력
+                ptr = strtok(NULL, " ");      // 다음 문자열을 잘라서 포인터를 반환
+            }
+    }
+    
+    //printf("\n");
+    /*
+    for (i = 0; i < count; i++) //일단 10으로 해놓음.
+    {
+        for(j=0; j< 10;j++){
+            if (aArr[i][j] != NULL){// 문자열 포인터 배열의 요소가 NULL이 아닐 때만
+                printf("%s", aArr[i][j]);   // 문자열 포인터 배열에 인덱스로 접근하여 각 문자열 출력
+            }else{
+                break;
+            }
+        }
+        printf("\n");
+    }
+    */
+    //printf("%s",aArr[5][5]);
+    
+    //비교시작
+    int correct = 0;
+    
+    for(i=1;i<count;i++){
+        for(int k=0;aArr[0][k]!=NULL;k++){
+            for(j=0;aArr[i][j]!=NULL;j++){
+                if(strcmp(aArr[0][k],aArr[i][j]) == 0){
+                    correct++;
+                    printf("%s\n",aArr[i][j]);
+                }
+            }
+        }
+    }
+    
+    printf("%d",correct);
+    return 0;
+}
