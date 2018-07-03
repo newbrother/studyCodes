@@ -1,0 +1,12 @@
+//is : 타입캐스팅 : 인스턴스의 타입을 확인하는 용도
+
+//as : 업캐스팅 : 부모클래스의 인스턴스로 사용할 수 있도록 컴파일러에게 타입정보를 전환.
+
+//as? , as! : 다운캐스팅
+
+//assert(someInt == 0 맞으면 계속진행 , 아닐경우 출력문 "error" (안써도됨) ), 디버깅모드에서만 작동
+//배포환경에서도 작동되는 precondition 함수도 있음.
+
+//guard : early exit, else문에 return, break가 필수
+//guard let 조건들 else{ return }
+//guard와 if let의 차이는 if let은 구문외부에서 언랩핑된 값을 사용 불가, guard는 가능.
