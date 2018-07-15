@@ -1,0 +1,41 @@
+http://codeup.kr/JudgeOnline/problem.php?id=1420
+
+#include <stdio.h>
+ 
+int main() {
+    int n;
+    scanf("%d",&n);
+    int score[n];
+    char name[n][20];
+    int max=0,count1=0,count2=0,count3=0;
+     
+    for(int i=0;i<n;i++){
+        scanf("%s %d",name[i],&score[i]);
+    }
+    //max를 찾고 그거를 빼고 또 max를 찾고..이렇게 세번해서 세번째로 큰 index를 찾는다.
+    for(int i=0;i<n;i++){
+        if(max<score[i]){
+            max=score[i];
+            count1=i;
+        }
+        //printf("count1 : %d\n",count1);
+    }
+    max=0;
+    for(int i=0;i<n;i++){
+        if(i!=count1 && max<score[i]){
+            max=score[i];
+            count2=i;
+        }
+        //printf("count2 : %d\n",count2);
+    }
+    max=0;
+    for(int i=0;i<n;i++){
+        if(i!=count1 && i!=count2 && max<score[i]){
+            max=score[i];
+            count3=i;
+        }
+        //printf("count3 : %d\n",count3);
+    }
+     
+    printf("%s",name[count3]);
+}
