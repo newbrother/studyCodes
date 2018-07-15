@@ -1,0 +1,46 @@
+http://codeup.kr/JudgeOnline/problem.php?id=1284
+
+
+#include <stdio.h>
+
+int i=0;
+
+int IsPrimeNumber(int n) //함수 정의문
+{
+    int last = n / 2;   //약수가 없는 수가 소수이므로 2부터 n/2(자기자신/2)까지만 확인하면 됨
+    if (n <= 1)//소수는 1보다 큰 자연수여야 함
+    {
+        return 0;
+    }
+    //(자기자신/2)보다 큰수는 약수가 될 수 없음
+    for (i = 2; i <= last; i++) //i를 2부터 last까지 1씩 증가시키며 반복 수행
+    {
+        if ((n%i) == 0) //n을 i로 나누었을때 나머지가 0이면(즉, i는 n의 약수가 아님)
+        {
+            return 0; //소수가 아니므로 0반환(i가 약수이므로 n은 소수가 아님)
+        }
+    }
+    return 1; //1~last(자기자신/2)사이에 약수가 없으므로 소수임
+}
+
+int main() {
+    int n,a=1,b=1;
+    scanf("%d",&n);
+    
+    for(i=1;i<n;i++){
+        if(n%i==0){
+            a=n/i;
+        }
+    }
+    b= n/a;
+    
+    if(IsPrimeNumber(a) && IsPrimeNumber(b)){
+        if(a<b)
+        printf("%d %d",a,b);
+        else
+        printf("%d %d",b,a);
+    }
+    else{
+        printf("wrong number");
+    }
+}
