@@ -1,0 +1,53 @@
+//http://codeup.kr/JudgeOnline/problem.php?id=1558
+//1558 : [기초-함수작성] 함수로 정수 뒤집어 리턴하기
+//뭔가너무 어렵게 푼것같은데...마지막엔 index가 20자리가 넘어가면서 long long int i 가 오버플로우가 생겨서 safe라는 변수를 추가해줘서 겨우풀었다.
+
+#include <stdio.h>
+
+long long int n;
+
+long long int f(long long int);
+
+int main()
+{
+    scanf("%lld", &n);
+    printf("%lld\n", f(n));
+}
+
+long long int f(long long int n){
+    long long int k=0;
+    long long int i=1;
+    long long int safe=1;
+    int a[100]={};
+    long long int index=0;
+    
+    for(i=10;n/i>0;i=i*10){
+        a[index]=n%(i)/(i/10);
+        //printf("%d\n",a[index]);
+        index++;
+        if(i>0)
+        safe=i;
+    }
+    if(i<0){
+        a[index]=n/safe;
+        //9223372036854775807
+        //1000000000000000001
+    }
+    else{
+        a[index]=n/(i/10);//일단...
+    }
+        //printf("%d\n",a[index]);
+        index++;
+        long long int m=1;
+        for(i=0;i<index-1;i++){
+            m=m*10;
+        }
+        
+        for(i=0;i<index;i++){
+            k+=a[i]*m;
+            m=m/10;
+            //printf("m:%lld k합: %lld\n",m,a[i]*m);
+        }
+        return k;
+    
+}
