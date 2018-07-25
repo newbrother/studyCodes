@@ -1,0 +1,39 @@
+http://codeup.kr/JudgeOnline/problem.php?id=1476
+
+잘이해안된다...
+
+
+#include <stdio.h>
+int main(){
+    int n,m;
+    scanf("%d %d",&n,&m);
+    
+    int num=0;
+    int i,j;
+    int arr[n][m];
+    //대각선 개수
+    for (i = 0; i < (n * m); i++)
+    {
+        for (j = 0; j < m; j++)
+        {
+            int k = i - j;
+            
+            if (k >= 0 && k < n){
+                arr[k][j] = ++num;
+            }
+        }
+    }
+    
+    for (i = 0; i < n; i++)
+    {
+        for (j = 0; j < m; j++)
+        {
+            printf("%d ", arr[i][j]);
+        }
+        
+        printf("\n");
+    }
+
+    
+}
+
