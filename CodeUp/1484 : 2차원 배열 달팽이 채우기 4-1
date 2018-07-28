@@ -1,0 +1,48 @@
+http://codeup.kr/JudgeOnline/problem.php?id=1484
+
+
+#include <stdio.h>
+
+int main(){
+    int n,m;
+    scanf("%d %d",&n,&m);
+    int a[n][m];
+    int x_min=0, x_max=m-1;
+    int y_min=0, y_max=n-1;
+    int cnt=1;
+    int i,j;
+    
+    while(cnt<=n*m){
+        for(i=x_min;i<=x_max&&cnt<=n*m;i++){
+            a[y_min][i]=cnt;
+            cnt++;
+        }
+        y_min++;
+        for(j=y_min;j<=y_max&&cnt<=n*m;j++){
+            a[j][x_max]=cnt;
+            cnt++;
+        }
+        x_max--;
+        for(i=x_max;i>=x_min&&cnt<=n*m;i--){
+            a[y_max][i]=cnt;
+            cnt++;
+        }
+        y_max--;
+        for(j=y_max;j>=y_min&&cnt<=n*m;j--){
+            a[j][x_min]=cnt;
+            cnt++;
+        }
+        x_min++;
+        //printf("\nx_min:%d x_max:%d y_min:%d y_max:%d cnt:%d\n",x_min,x_max,y_min,y_max,cnt);
+        //break;
+    }
+    
+    
+    for(i=0;i<n;i++){
+        for(j=0;j<m;j++)
+            printf("%d ",a[i][j]);
+        printf("\n");
+    }
+    
+}
+
