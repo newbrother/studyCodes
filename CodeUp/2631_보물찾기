@@ -1,0 +1,26 @@
+//http://codeup.kr/JudgeOnline/problem.php?id=2631
+
+#include <stdio.h>
+
+int n, a[100005], k, cnt;
+
+void f(int x,int y,int sum){
+    if(x>=n||y>=n) return;
+    if (sum==k){
+        cnt++;
+        f(x+1,y,sum-a[x]);
+    }
+    if(sum>k) f(x+1,y,sum-a[x]);
+    if(sum<k) f(x,y+1,sum+a[y+1]);
+}
+
+int main(){
+    int i;
+    scanf("%d %d",&n,&k);
+    for(i=0;i<n;i++){
+        scanf("%d",&a[i]);
+    }
+    f(0,0,a[0]);
+    printf("%d",cnt);
+    return 0;
+}
