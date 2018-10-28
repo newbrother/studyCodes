@@ -1,0 +1,86 @@
+//http://codeup.kr/JudgeOnline/problem.php?id=1520
+
+#include <stdio.h>
+
+int main()
+{
+    //a,b 격자판의크기
+    int a,b;
+    scanf("%d %d",&a,&b);
+    //생명이 태어나기 위한 이웃의 수 q, 생명이 살기 위해 필요한 최소 이웃 수 w, 생명이 죽는 최소 이웃수 e
+    int q,w,e;
+    scanf("%d %d %d",&q,&w,&e);
+    
+    int m[2][171][171]={0,};
+    int i,j,k,l;
+    int count=0;
+    int x,y;
+    //이전세대 입력
+    for(i=1;i<=a;i++){
+        for(j=1;j<=b;j++){
+            scanf("%d",&m[0][i][j]);
+        }
+    }
+    //z 세대지나는 숫자 입력
+    int z;
+    scanf("%d",&z);
+    int swit1=0,swit2=1;
+    
+    while(z>0){
+        //주위 생명 세기
+        for(i=1;i<=a;i++){
+            for(j=1;j<=b;j++){
+                y=i-1;
+                for(k=0;k<3;k++){
+                    x=j-1;
+                    if(y>0 && y<=a){
+                        for(l=0;l<3;l++){
+                            if(x>0 && x<=b){
+                                if(m[swit1][y][x]==1 && (y!=i || x!=j) )
+                                    count++;
+                            }
+                            x++;
+                        }
+                    }
+                    y++;
+                }
+            
+                //요기
+                if(m[swit1][i][j]==0){
+                    if(count==q)
+                        m[swit2][i][j]=1;
+                    else
+                        m[swit2][i][j]=0;
+                }else{
+                    if(count>=w && count<e)
+                        m[swit2][i][j]=1;
+                    else
+                        m[swit2][i][j]=0;
+                }
+                count=0;
+                }
+            }
+        
+        z--;
+        if(swit1==0){
+            swit1=1;
+            swit2=0;
+        }
+        else{
+            swit1=0;
+            swit2=1;
+        }
+    }
+    
+    //다음세대 출력
+    
+    for(i=1;i<=a;i++){
+        for(j=1;j<=b;j++)
+            printf("%d ",m[swit1][i][j]);
+        printf("\n");
+    }
+    
+    return 0;
+}
+
+
