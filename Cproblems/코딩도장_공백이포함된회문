@@ -1,0 +1,39 @@
+
+//https://dojang.io/mod/quiz/attempt.php?attempt=340254
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main()
+{
+    char s1[31];
+    
+    scanf("%[^\n]s",s1);
+    
+    int isP = 1;
+    int len = strlen(s1);
+    int start = 0;
+    int end = len-1;
+    for(int i=0;i<len/2;i++){
+        if(s1[end]==' '){
+            end--;
+        }else if(s1[start]==' '){
+            start++;
+        }
+        else if(s1[start]!=s1[end]){
+            isP = 0;
+            break;
+        }
+        else{
+            end--;
+            start++;
+        }
+    }
+    printf("%d",isP);
+    return 0;
+}
+
+
+
+
