@@ -1,0 +1,68 @@
+//https://www.acmicpc.net/problem/15353
+//큰수 A+B 
+//백준 15353번
+
+#include <stdio.h>
+#include <string.h>
+
+char a[10005],b[10005];
+int lengA,lengB;
+//10000자리 숫자 입력받아야한다. char배열에 자리수별로 넣는다.
+
+void f(int idx,int carry){
+    int num=0;
+    if(idx>=lengA && idx>=lengB){
+        if(carry)
+            printf("1");
+        return;
+    }
+    else if(idx>=lengA){  //B배열만 남은상태
+        num=(b[idx]-'0')+carry;
+        if(num>=10){
+            num-=10;
+            f(idx+1,1);
+        }else{
+            f(idx+1,0);
+        }
+    }else if(idx>=lengB){ //A배열만 남은상태
+        num=(a[idx]-'0')+carry;
+        if(num>=10){
+            num-=10;
+            f(idx+1,1);
+        }else{
+            f(idx+1,0);
+        }
+    }else{
+        num=(a[idx]-'0')+(b[idx]-'0')+carry;
+        if(num>=10){
+            num-=10;
+            f(idx+1,1);
+        }else{
+            f(idx+1,0);
+        }
+    }
+    printf("%d",num);
+}
+
+int main()
+{
+    scanf("%s %s",a,b);
+    lengA=(int)strlen(a);
+    lengB=(int)strlen(b); //자리수를 알아야 쉽게 뒤집어 더할 수 있다.
+    
+    char tmp;
+    for (int i = 0; i < lengA/2; i++) { //쉬운 덧셈을 위해 a배열 뒤집기
+        tmp = a[i];
+        a[i] = a[lengA-1-i];
+        a[lengA-1-i] = tmp;
+    }
+    for (int i = 0; i < lengB/2; i++) { //쉬운 덧셈을 위해 b배열 뒤집기
+        tmp = b[i];
+        b[i] = b[lengB-1-i];
+        b[lengB-1-i] = tmp;
+    }
+    int carry = 0;
+    f(0,carry);
+    
+    return 0;
+}
