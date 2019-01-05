@@ -1,0 +1,27 @@
+
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+int main(){
+    int caseNum;
+    char str[1001];
+    char sc[11];
+    int cnt=0;
+    
+    for(int i=0;i<10;i++){
+        scanf("%d %s %s",&caseNum,sc,str);
+        
+        char *ptr = strstr(str, sc);
+        
+        while (ptr != NULL)
+        {
+            cnt++;
+            ptr = strstr(ptr+1, sc);
+        }
+        
+        printf("#%d %d\n",caseNum,cnt);
+        cnt=0;
+    }
+    return 0;
+}
