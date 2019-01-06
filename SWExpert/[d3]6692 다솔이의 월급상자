@@ -1,0 +1,22 @@
+#include <stdio.h>
+
+int main(){
+    int testCase;
+    scanf("%d",&testCase);
+    //testCase번 반복
+    for(int j=1;j<=testCase;j++){
+        int n;//p,x의 숫자
+        scanf("%d",&n);
+        double p; //확률
+        int x; //돈
+        double sum=0;
+        for(int i=0;i<n;i++){
+            scanf("%lf %d",&p,&x);
+            sum+=p*x;
+        }
+        printf("#%d %f\n",j,sum);
+    }
+    
+    
+    return 0;
+}
