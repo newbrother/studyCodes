@@ -1,1 +1,45 @@
-시작
+#include <stdio.h>
+#include <string.h>
+
+char str[1002];
+
+int main(){
+    int testCase;
+    scanf("%d",&testCase);
+    
+    /*
+     [입력]
+     
+     첫 번째 줄에 테스트 케이스의 수 T가 주어진다.
+     
+     각 테스트 케이스의 첫 번째 줄에는 ‘0’에서 ‘9’사이의 문자 만으로 이루어진 문자열이 주어진다. 이 문자열의 길이는 1001 이하이다.
+     
+     이 문자열의 첫 번째 글자가 의미하는 바는 기립 박수를 하고 있는 사람이 아무도 없을 때(0 명일 때) 기립 박수를 하는 사람의 수를 의미한다.
+     
+     그리고 i번째 글자가 의미하는 바는 기립 박수를 하고 있는 사람이 i-1명 이상일 때 기립 박수를 하는 사람의 수를 의미한다.
+     
+     가장 마지막 문자는 ‘0’이 아니다. (적어도 한 명의 관객이 있음을 의미한다.)
+     */
+    
+    //testCase번 반복
+    for(int j=1;j<=testCase;j++){
+        scanf("%s",str);
+        int need=0;
+        int claper=str[0]-'0';
+        int strLen = (int)strlen(str);
+        //printf("strlen:%d\n",strLen);
+        
+        for(int i=1;i<=strLen;i++){
+            
+            if(claper<i){
+                need+=i-claper;
+                claper+=i-claper;
+            }
+            //printf("i:%d, claper:%d, need:%d\n",i,claper,need);
+            claper+=str[i]-'0';
+        }
+        printf("#%d %d\n",j,need);
+    }
+    
+    return 0;
+}
