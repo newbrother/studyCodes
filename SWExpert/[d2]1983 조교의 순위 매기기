@@ -1,0 +1,65 @@
+#include <stdio.h>
+void getScore(int n, int rank){
+    double num = (double)rank/n;
+    //printf("\n rank:%d num:%f \n",rank,num);
+    if(num<=0.1){
+        printf("A+\n");
+    }else if(num<=0.2){
+        printf("A0\n");
+    }else if(num<=0.3){
+        printf("A-\n");
+    }else if(num<=0.4){
+        printf("B+\n");
+    }else if(num<=0.5){
+        printf("B0\n");
+    }else if(num<=0.6){
+        printf("B-\n");
+    }else if(num<=0.7){
+        printf("C+\n");
+    }else if(num<=0.8){
+        printf("C0\n");
+    }else if(num<=0.9){
+        printf("C-\n");
+    }else{
+        printf("D0\n");
+    }
+}
+
+int main(){
+    /*
+     입력은 첫 줄에 총 테스트 케이스의 개수 T가 온다.
+     
+     다음 줄부터 각 테스트 케이스가 주어진다.
+     
+     테스트 케이스의 첫 번째 줄은 학생수 N 과, 학점을 알고싶은 학생의 번호 K 가 주어진다.
+     
+     테스트 케이스 두 번째 줄 부터 각각의 학생이 받은 시험 및 과제 점수가 주어진다.
+     */
+    int testCase;
+    scanf("%d",&testCase);
+    //testCase번 반복
+    for(int j=1;j<=testCase;j++){
+        int n,k;
+        scanf("%d %d",&n,&k);
+        int s1,s2,s3;//점수
+        int total[n+1];
+        //입력과 총점
+        for(int i=1;i<=n;i++){
+            //중간35, 기말45, 과제20
+            scanf("%d %d %d",&s1,&s2,&s3);
+            total[i]=s1*35+s2*45+s3*20;
+        }
+        //순위구하기
+        int rank=1;
+        for(int i=1;i<=n;i++){
+            if(i!=k && total[i]>total[k])
+                rank++;
+        }
+        printf("#%d ",j);
+        getScore(n,rank);
+    }
+}
+
+
+
+
