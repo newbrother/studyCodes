@@ -1,0 +1,47 @@
+#include <stdio.h>
+
+int arr[1000001];
+
+//d를포함한 숫자면 1반환 아니면 0반환
+int heLike(int d, int i){
+    while(i>0){
+        if(i%10==d)
+            return 1;
+        i/=10;
+    }
+    return 0;
+}
+
+int main(){
+    int testCase;
+    scanf("%d",&testCase);
+    //에라토스테네스체로 소수판단을 미리 해놓고,
+    //a~b범위에서 d가 있는 숫자의 개수를 세자.
+    //소수판단
+    arr[1]=1;
+    for(int i=2;i*i<=1000000;i++){
+        if (arr[i]==0)
+            for(int j=i*i;j<=1000000;j+=i)
+                arr[j]=1;
+        //1이면 소수가 아니다
+    }
+    
+    //testcase번 반복
+    for(int j=1;j<=testCase;j++){
+        int d,a,b; //d:helike, a~b
+        int sum=0;
+        scanf("%d %d %d",&d,&a,&b);
+        for(int i=a;i<=b;i++){
+            if(arr[i]==0){
+                sum+=heLike(d,i);
+            }
+        }
+        printf("#%d %d\n",j,sum);
+    }
+    return 0;
+}
+
+
+
+
+
