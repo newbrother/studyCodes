@@ -52,7 +52,7 @@ int main(){
         //순위구하기
         int rank=1;
         for(int i=1;i<=n;i++){
-            if(i!=k && total[i]>total[k])
+            if(total[i]>total[k] && i!=k) //total[i]>total[k]가 먼저나오는게 효율적
                 rank++;
         }
         printf("#%d ",j);
