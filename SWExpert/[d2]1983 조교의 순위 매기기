@@ -1,3 +1,6 @@
+//getScore 함수에서 if를 2개씩 분기되도록(이분할 되도록) 수정하면 최대 4번만에 모든 경우를 판단할수있다.
+
+
 #include <stdio.h>
 void getScore(int n, int rank){
     double num = (double)rank/n;
