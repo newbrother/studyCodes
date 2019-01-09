@@ -1,5 +1,73 @@
-//getScore 함수에서 if를 2개씩 분기되도록(이분할 되도록) 수정하면 최대 4번만에 모든 경우를 판단할수있다.
+//2분할전: 처음코드
+//2분할 했지만, 시간이너무작아서그런지 그대로6ms이고, 코드길이랑 메모리(4KB) 늘었다.
+//새로운코드 : 소수연산을 정수형으로 변경하고 매개변수도 1개로줄임. 그대로 6ms. 메모리 처음과같이 4KB줄었고, 
+-----------------------
+//새로운코드
+#include <stdio.h>
+#define maxN 100
 
+void getScore(int num){
+    
+    if(num<=50){
+        if(num<=30){
+            if(num<=10){
+                printf("A+\n");
+            }else if(num<=20){
+                printf("A0\n");
+            }else{
+                printf("A-\n");
+            }
+        }else{
+            if(num<=40){
+                printf("B+\n");
+            }else{
+                printf("B0\n");
+            }
+        }
+    }else{
+        if(num<=80){
+            if(num<=60){
+                printf("B-\n");
+            }
+            else if(num<=70){
+                printf("C+\n");
+            }else{
+                printf("C0\n");
+            }
+        }else{
+            if(num<=90){
+                printf("C-\n");
+            }else{
+                printf("D0\n");
+            }
+        }
+    }
+}
+
+int main(){
+    int testCase;
+    scanf("%d",&testCase);
+    for(int j=1;j<=testCase;j++){
+        int n,k;
+        scanf("%d %d",&n,&k);
+        int s1,s2,s3;
+        int total[n+1];
+        for(int i=1;i<=n;i++){
+            scanf("%d %d %d",&s1,&s2,&s3);
+            total[i]=s1*35+s2*45+s3*20;
+        }
+        int rank=1;
+        for(int i=1;i<=n;i++){
+            if(i!=k && total[i]>total[k])
+                rank++;
+        }
+        printf("#%d ",j);
+        getScore(rank*maxN/n);
+    }
+}
+
+-----------------------------
+//처음 코드
 
 #include <stdio.h>
 void getScore(int n, int rank){
