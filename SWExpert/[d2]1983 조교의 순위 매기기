@@ -1,50 +1,14 @@
-//2분할전: 처음코드
-//2분할 했지만, 시간이너무작아서그런지 그대로6ms이고, 코드길이랑 메모리(4KB) 늘었다.
-//새로운코드 : 소수연산을 정수형으로 변경하고 매개변수도 1개로줄임. 그대로 6ms. 메모리 처음과같이 4KB줄었고, 
+중첩if에서 이분할if로 변경 -> Lookup 배열 
 -----------------------
-//새로운코드
 #include <stdio.h>
-#define maxN 100
-
-void getScore(int num){
-    
-    if(num<=50){
-        if(num<=30){
-            if(num<=10){
-                printf("A+\n");
-            }else if(num<=20){
-                printf("A0\n");
-            }else{
-                printf("A-\n");
-            }
-        }else{
-            if(num<=40){
-                printf("B+\n");
-            }else{
-                printf("B0\n");
-            }
-        }
-    }else{
-        if(num<=80){
-            if(num<=60){
-                printf("B-\n");
-            }
-            else if(num<=70){
-                printf("C+\n");
-            }else{
-                printf("C0\n");
-            }
-        }else{
-            if(num<=90){
-                printf("C-\n");
-            }else{
-                printf("D0\n");
-            }
-        }
-    }
-}
-
+#include <math.h>
+ 
 int main(){
+    char score[10][3] = {
+        "A+","A0","A-",
+        "B+","B0","B-",
+        "C+","C0","C-","D0"
+    };
     int testCase;
     scanf("%d",&testCase);
     for(int j=1;j<=testCase;j++){
@@ -61,76 +25,9 @@ int main(){
             if(i!=k && total[i]>total[k])
                 rank++;
         }
-        printf("#%d ",j);
-        getScore(rank*maxN/n);
+        int idx = ceil( (double)rank /n * 10 );
+        printf("#%d %s\n",j,score[idx-1]);
     }
 }
-
------------------------------
-//처음 코드
-
-#include <stdio.h>
-void getScore(int n, int rank){
-    double num = (double)rank/n;
-    //printf("\n rank:%d num:%f \n",rank,num);
-    if(num<=0.1){
-        printf("A+\n");
-    }else if(num<=0.2){
-        printf("A0\n");
-    }else if(num<=0.3){
-        printf("A-\n");
-    }else if(num<=0.4){
-        printf("B+\n");
-    }else if(num<=0.5){
-        printf("B0\n");
-    }else if(num<=0.6){
-        printf("B-\n");
-    }else if(num<=0.7){
-        printf("C+\n");
-    }else if(num<=0.8){
-        printf("C0\n");
-    }else if(num<=0.9){
-        printf("C-\n");
-    }else{
-        printf("D0\n");
-    }
-}
-
-int main(){
-    /*
-     입력은 첫 줄에 총 테스트 케이스의 개수 T가 온다.
-     
-     다음 줄부터 각 테스트 케이스가 주어진다.
-     
-     테스트 케이스의 첫 번째 줄은 학생수 N 과, 학점을 알고싶은 학생의 번호 K 가 주어진다.
-     
-     테스트 케이스 두 번째 줄 부터 각각의 학생이 받은 시험 및 과제 점수가 주어진다.
-     */
-    int testCase;
-    scanf("%d",&testCase);
-    //testCase번 반복
-    for(int j=1;j<=testCase;j++){
-        int n,k;
-        scanf("%d %d",&n,&k);
-        int s1,s2,s3;//점수
-        int total[n+1];
-        //입력과 총점
-        for(int i=1;i<=n;i++){
-            //중간35, 기말45, 과제20
-            scanf("%d %d %d",&s1,&s2,&s3);
-            total[i]=s1*35+s2*45+s3*20;
-        }
-        //순위구하기
-        int rank=1;
-        for(int i=1;i<=n;i++){
-            if(total[i]>total[k] && i!=k) //total[i]>total[k]가 먼저나오는게 효율적
-                rank++;
-        }
-        printf("#%d ",j);
-        getScore(n,rank);
-    }
-}
-
-
 
 
