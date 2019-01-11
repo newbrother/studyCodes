@@ -1,3 +1,7 @@
+//미리 limit-40보다 큰 친구들은 answer에 더해놓는다.
+//아닌 친구들만 배열에 새로 저장.
+//최대 초 : 테스트 1 〉	통과 (1.50ms )
+
 #include <string>
 #include <algorithm>
 #include <vector>
@@ -31,5 +35,29 @@ int solution(vector<int> people, int limit) {
         answer++;
     }
     //printf("end i=%d j=%d\n",i,j);
+    return answer;
+}
+
+------------------------
+//더간단한 버전 
+//테스트 1 〉	통과 (1.78ms, 4.13MB)
+
+#include <string>
+#include <algorithm>
+#include <vector>
+
+using namespace std;
+
+int solution(vector<int> people, int limit) {
+    int answer = 0;
+    sort(people.begin(),people.end());
+    int i=0, j=people.size()-1;
+    while(i<=j){
+        if(people[j]+people[i]<=limit){
+            i++;
+        }
+        j--;
+        answer++;
+    }
     return answer;
 }
