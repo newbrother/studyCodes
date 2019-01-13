@@ -1,0 +1,31 @@
+//스택큐문제인데...왜 스택큐인지 생각하기도 전에 쉽게 계산하는 방법을 알아냈다.
+//스택큐 공부하려고 푼건데...
+
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int solution(string arrangement) {
+    int answer = 0;
+    int laser = 0;
+    int pole = 0;
+    int i;
+    int length = arrangement.size();
+    for(i=0;i<length;i++){
+        if(arrangement.at(i) == '('){
+            if(arrangement.at(i+1) == ')'){
+                //레이저인경우
+                answer+=pole;
+                i++;
+            }else{
+                //막대기인경우
+                pole++;
+            }
+        }else{//닫는괄호
+            answer++;
+            pole--;
+        }
+    }
+    return answer;
+}
