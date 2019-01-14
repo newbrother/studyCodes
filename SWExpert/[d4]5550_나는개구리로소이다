@@ -1,0 +1,78 @@
+//frogEndIdx 배열을 만들 생각을 처음에 하다가 그냥 안쓰고 하려고 했는데........
+//테스트케이스중에 예외가 발생해서 frogEndIdx를 만들어서 썼다. 앞으로는 바로바로 만들도록하자.
+
+#include <stdio.h>
+#include <string.h>
+
+char c[5] = { 'c','r','o','a','k' };
+
+int main() {
+
+    int t;
+    scanf("%d", &t);
+    for (int tn = 1; tn <= t; tn++) {
+        char str[2501];
+        //str길이 5이상 2500이하
+        //즉 개구리는 최대 500마리 
+        //울음소리 예외처리를 위한 배열
+        int frog[501] = { 0 };
+        scanf("%s", str);
+
+        int i, j;
+        //frogMax:개구리최대숫자, frogEnd:끝난개구리수
+        int frogMax = 0, frogEnd = 0;
+        //frog End 위치를 인덱싱할 배열
+        int frogEndIdx[501] = { 0 };
+        int frogPtr = 0;
+        int error = 0; //error 발생시 1
+        int len = strlen(str);
+        for (i = 0; i < len; i++) {
+            int flag = 0;
+            for (j = frogMax; j >0; j--) {
+                if (str[i] == 'c') {
+                    break;
+                }
+                if (str[i] == c[frog[j]]) {
+                    flag = 1;
+                    if (str[i] == 'k') { //k이면
+                        frog[j] = 0;
+                        frogEnd++;
+                        frogEndIdx[frogEnd] = j;
+                    }
+                    else {
+                        frog[j]++;
+                    }
+                    break;
+                }
+            }
+            if (flag==0) {
+                if (str[i] == 'c') {
+                    if (frogEnd == 0) {
+                        frogMax++;
+                        frog[frogMax]++;
+                    }
+                    else{   //frogEnd가 존재하는경우
+                        frog[frogEndIdx[frogEnd]]++;
+                        frogEndIdx[frogEnd] = 0;
+                        frogEnd--;
+                    }
+                }
+                else {  //값이 새로들어왔는데 c가 아닌경우
+                    error = 1;
+                    break;
+                }
+            }
+
+        }
+        if (frogEnd != frogMax) {
+            error = 1;
+        }
+
+        if (error) { //에러출력
+            printf("#%d -1\n", tn);
+        }
+        else { //정상출력
+            printf("#%d %d\n", tn, frogMax);
+        }
+    }
+}
