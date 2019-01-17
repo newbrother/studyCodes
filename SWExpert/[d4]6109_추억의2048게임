@@ -1,0 +1,163 @@
+//문제이해가 잘안되서 2048 게임을 직접 플레이해봤다. 굉장히 재미있다. 중독성있고,
+//막코딩을 했더니,,, 계속 테스트케이스 반만 맞길래 자세히 보니까
+//2개의 키는 0~ n-1까지 반복하는데 나머지 두개의 케이스가 0~n까지 반복하도록 수정이 안되있던거다.
+//이래서 막코딩하지말고 이쁘게 짜라는거구나~ 다시 한번 생각했다.
+
+#include <stdio.h>
+#include <string.h>
+
+char *key[6] = { "left","right","up","down" };
+
+int main() {
+    int tc;
+    scanf("%d",&tc);
+    for ( int tn = 1; tn <= tc; tn++) {
+
+        int n;
+        char str[6];
+        int arr[20][20] = { 0 };
+        int flag[20][20] = { 0 };
+        int i, j,k;
+        int cnt = 0;
+        int keyIdx = 0;
+        scanf("%d %s", &n, &str);//n:1~20
+        
+        for (i = 0; i < n; i++) {
+            for (j = 0; j < n; j++) {
+                scanf("%d", &arr[i][j]);
+            }
+        }
+
+        for (i = 0; i < 4; i++) {
+            if (strcmp(str, key[i]) == 0)
+                keyIdx = i;
+        }
+        
+        //left
+        if (keyIdx == 0) {
+            for (k = 0; k < n; k++) {
+                cnt = 0;
+                for (j = 0; j < n-1; j++) {
+                    for (i = 0; i < n; i++) {
+                        if (arr[i][j] != 0 && arr[i][j] == arr[i][j + 1] && (flag[i][j] == 0 && flag[i][j + 1] == 0)) {
+                            arr[i][j] = arr[i][j] << 1;
+                            flag[i][j] = 1;
+                            arr[i][j + 1] = 0;
+                        }
+                        else if (arr[i][j + 1] != 0 && arr[i][j] == 0) {
+                            //교환후, 플래그도 같이 위쪽으로 올라감
+                            arr[i][j] = arr[i][j + 1];
+                            arr[i][j + 1] = 0;
+                            if (flag[i][j + 1] == 1)
+                                flag[i][j] = 1;
+                                //flag[i + 1][j] = 0;
+                        }
+                        else {
+                            cnt++;
+                        }
+                    }
+                }
+                if (cnt == (n - 1)*n)
+                    break;
+            }
+        }
+        //right
+        else if (keyIdx == 1) {
+            for (k = 0; k < n; k++) {
+                cnt = 0;
+                for (j = n - 2; j >= 0; j--) {
+                    for (i = 0; i < n; i++) {
+                        if (arr[i][j + 1] != 0 && arr[i][j] == arr[i][j + 1] && (flag[i][j] == 0 && flag[i][j + 1] == 0)) {
+                            arr[i][j + 1] = arr[i][j + 1] << 1;
+                            flag[i][j + 1] = 1;
+                            arr[i][j] = 0;
+                        }
+                        else if (arr[i][j] != 0 && arr[i][j + 1] == 0) {
+                            arr[i][j + 1] = arr[i][j];
+                            arr[i][j] = 0;
+                            if (flag[i][j] == 1) {
+                                flag[i][j + 1] = 1;
+                                //flag[i][j] = 0;
+                            }
+                                
+                        }
+                        else {
+                            cnt++;
+                        }
+                    }
+                }
+                if (cnt == (n - 1)*n)
+                    break;
+            }
+        }
+        //up
+        else if (keyIdx == 2) {
+
+            for (k = 0; k < n; k++) {
+                cnt = 0;
+                for (i = 0; i < n-1; i++) {
+                    for (j = 0; j < n; j++) {
+                        if (arr[i][j] != 0 && arr[i][j] == arr[i + 1][j] && (flag[i][j] == 0 && flag[i + 1][j] == 0)) {
+                            arr[i][j] = arr[i][j] << 1;
+                            flag[i][j] = 1;
+                            arr[i + 1][j] = 0;
+                        }
+                        else if (arr[i+1][j] !=0 && arr[i][j] == 0) {
+                            //교환후, 플래그도 같이 위쪽으로 올라감
+                            arr[i][j] = arr[i + 1][j];
+                            arr[i + 1][j] = 0;
+                            if (flag[i + 1][j] == 1) {
+                                flag[i][j] = 1;
+                                //flag[i + 1][j] = 0;
+                            }
+                        }
+                        else {
+                            cnt++;
+                        }
+                    }
+                }
+                if (cnt == (n - 1)*n)
+                    break;
+            }
+        }
+        //down
+        else if (keyIdx == 3) {
+            for (k = 0; k < n; k++) {
+                cnt = 0;
+                for (i = n-2; i >= 0; i--) {
+                    for (j = 0; j < n; j++) {
+                        if (arr[i+1][j] != 0 && arr[i][j] == arr[i + 1][j] && (flag[i][j] == 0 && flag[i + 1][j] == 0)) {
+                            arr[i+1][j] = arr[i+1][j] << 1;
+                            flag[i+1][j] = 1;
+                            arr[i][j] = 0;
+                        }
+                        else if (arr[i][j] != 0 && arr[i+1][j] == 0) {
+                            arr[i+1][j] = arr[i][j];
+                            arr[i][j] = 0;
+                            if (flag[i][j] == 1) {
+                                flag[i + 1][j] = 1;
+                                //flag[i][j] = 0;
+                            }
+                        }
+                        else {
+                            cnt++;
+                        }
+                    }
+                }
+                if (cnt == (n-1)*n)
+                    break;
+            }
+        }
+
+
+
+        printf("#%d\n", tn);
+
+        for (i = 0; i < n; i++) {
+            for (j = 0; j < n; j++) {
+                printf("%d ", arr[i][j]);
+            }
+            printf("\n");
+        }
+    }
+}
