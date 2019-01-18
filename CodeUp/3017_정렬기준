@@ -1,0 +1,50 @@
+//2가지 항목은 내림차순, 한개의 항목은 오름차순으로 정렬하는 문제이다.
+//처음에 소트가 알아서 될줄알고 단순하게 vector< pair< pair<int,int>, int> 형태의 컨테이너를 만들었는데,
+//내림차순 내림차순 까지는 알아서 해주는데 마지막 오름차순으로 정렬하려니까 안되서 결국 compare 함수를 만들었다.
+//이런식으로 만들어도 매개변수로 받아지는구나 생각은 들었지만 역시 3개의 항목 이상이면 구조체나 클래스를 만드는게 어떨까싶다.
+
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+bool compare(const pair<pair<int,int>,int> &a, const pair<pair<int, int>, int> &b) {
+    if (a.first.first > b.first.first) {
+        return true;
+    }
+    else if (a.first.first == b.first.first) {
+        if (a.first.second > b.first.second)
+            return true;
+        else if (a.first.second == b.first.second) {
+            if (a.second < b.second)
+                return true;
+            else
+                return false;
+        }
+        else {
+            return false;
+        }
+    }
+    else {
+        return false;
+    }
+}
+
+int main()
+{
+    vector < pair<pair<int, int>, int> > vpp;
+    int n;
+    cin >> n;
+    int tmp1, tmp2;
+    for (int i = 1; i <= n; i++) {
+        cin >> tmp1 >> tmp2;
+        vpp.push_back(make_pair(make_pair(tmp1, tmp2),i));
+    }
+    //pair는 내림차순, int는 오름차순...
+    sort(vpp.begin(), vpp.end(),compare );
+    
+    for (int i = 0; i < n; i++) {
+        cout<<vpp[i].second<<" "<<vpp[i].first.first<<" "<<vpp[i].first.second<<"\n";
+    }
+    return 0;
+}
