@@ -1,0 +1,100 @@
+//C++연습겸 C++로 풀어봤다. 아직은 더오래걸리는것같다.
+
+#include <iostream>
+#include <vector>
+using namespace std;
+#define arrSize 10
+
+//0:빈공간 -1:장애물 2이상:물풍선(숫자만큼 터진다)를 입력
+//0:빈공간 -1:장애물 -2:물풍선로 변경, 그리고 0인곳에 플레이어있으면 입력된순서+1로 출력.
+int map[11][11];
+bool plive[9];
+
+int main(void) {
+    int i, j;
+    for (i = 1; i <= arrSize; i++) {
+        for (j = 1; j <= arrSize; j++) {
+            cin >> map[i][j];
+        }
+    }
+
+    int n;//플레이어수 1~8
+    cin >> n;
+    vector<pair<int, int> > pv;
+    int x, y;
+    for (i = 0; i < n; i++) {
+        cin >> x >> y;
+        pv.push_back(make_pair(x, y));
+    }
+
+    for (i = 1; i <= arrSize; i++) {
+        for (j = 1; j <= arrSize; j++) {
+            if (map[i][j] >= 1) //물풍선이 있다.
+            {
+                int range = map[i][j];
+                map[i][j] = -2;
+                //만약 i가 1보다 작거나(up) arrsize보다 크거나(down), j가 1보다 작거나(left) arrSize보다 크거나(right)
+                //-1이이면 멈춘다.
+                //0이면 -2를 입력한다.   -2나 1이상이면 그냥 지나감.
+                
+                //up
+                for (int cnt = 1; cnt <= range; cnt++) {
+                    int tmp = i - cnt;
+                    if (map[tmp][j] == -1  || tmp < 1)
+                        break;
+                    if(map[tmp][j] == 0 )
+                        map[tmp][j] = -2;
+                }
+                //down
+                for (int cnt = 1; cnt <= range; cnt++) {
+                    int tmp = i + cnt;
+                    if (map[tmp][j] == -1  || tmp > arrSize)
+                        break;
+                    if (map[tmp][j] == 0)
+                        map[tmp][j] = -2;
+                }
+                //left
+                for (int cnt = 1; cnt <= range; cnt++) {
+                    int tmp = j - cnt;
+                    if (map[i][tmp] == -1  || tmp < 1)
+                        break;
+                    if (map[i][tmp] == 0)
+                        map[i][tmp] = -2;
+                }
+                //right
+                for (int cnt = 1; cnt <= range; cnt++) {
+                    int tmp = j + cnt;
+                    if (map[i][tmp] == -1 || tmp > arrSize)
+                        break;
+                    if (map[i][tmp] == 0)
+                        map[i][tmp] = -2;
+                }
+            }
+                
+        }
+    }
+
+    //만약 플레이어 위치가 0이면 map의 해당위치를 플레이어 입력된순서+1로 변경.
+    //그친구는 survive 출력 죽은친구들은 dead출력
+    for (i = 0; i < n; i++) {
+        if (map[pv[i].first][pv[i].second] == 0) {
+            map[pv[i].first][pv[i].second] = i + 1;
+            plive[i+1] = true;
+        }
+    }
+
+    for (i = 1; i <= arrSize; i++) {
+        for (j = 1; j <= arrSize;j++) 
+            cout << map[i][j] << " ";
+        cout << "\n";
+    }
+    
+    cout << "Character Information\n";
+    for (i = 1; i <= n; i++) {
+        cout << "player " << i << " ";
+        if (plive[i] == true)
+            cout << "survive" << "\n";
+        else
+            cout << "dead" << "\n";
+    }
+}
