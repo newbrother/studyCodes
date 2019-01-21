@@ -1,0 +1,22 @@
+//간단하게 이중반복으로 해결했다.
+
+#include <string>
+#include <vector>
+using namespace std;
+
+vector<int> solution(vector<int> heights) {
+    vector<int> answer;
+    int n=heights.size();
+    answer.push_back(0);
+    for(int i=1;i<n;i++){
+        int idx=0;
+        for(int j=i-1;j>=0;j--){
+            if(heights[i]<heights[j]){
+                idx=j+1;
+                break;
+            }
+        }
+        answer.push_back(idx);
+    }
+    return answer;
+}
