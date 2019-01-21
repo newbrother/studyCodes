@@ -1,0 +1,30 @@
+//이건 엄청 쉽게풀었다.
+
+#include <string>
+#include <vector>
+
+using namespace std;
+
+vector<int> solution(vector<int> progresses, vector<int> speeds) {
+    vector<int> answer;
+    //vector가 empty될때까지 반복한다.
+    int n= progresses.size();
+    int i=0;
+    while(i < n){
+        //i번째 작업이 완료될때까지 진행.
+        while(progresses[i]<100){
+            for(int j=i;j<n;j++){
+                progresses[j]+=speeds[j];
+            }
+        }
+        //i번째작업으로부터 완료된 연속적인 작업만큼 숫자를세면서 i값을 더하고, cnt를 1씩 더한다.
+        int cnt=0;
+        while(i<n && progresses[i]>=100){
+            cnt++;
+            i++;
+        }
+        //answer에 cnt를 push_back한다.
+        answer.push_back(cnt);
+    }
+    return answer;
+}
