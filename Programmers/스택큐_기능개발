@@ -7,9 +7,9 @@ using namespace std;
 
 vector<int> solution(vector<int> progresses, vector<int> speeds) {
     vector<int> answer;
-    //vector가 empty될때까지 반복한다.
     int n= progresses.size();
     int i=0;
+    //vector의 개수만큼 i가 될때까지 반복한다.
     while(i < n){
         //i번째 작업이 완료될때까지 진행.
         while(progresses[i]<100){
