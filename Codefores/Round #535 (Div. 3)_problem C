@@ -1,0 +1,53 @@
+//http://codeforces.com/contest/1108/problem/C
+//착하게(?) 풀다가 틀린상태로 컨테스트 종료됨...끝나고 고쳐서 accecpt
+
+//R,G,B 색의 램프가 있는데 각색은 3칸씩 띄어서 나와야한다(영어 문제 해석 잘 못했음...)
+//미리 최적값을 예상하고 예상된 최적값으로 배열을 변경해두고, 값을 세고 배열을 변경했다.
+//(처음 3개 값만 보고 s배열중에 1개를 골라서 color배열을 변경하고 시작했음)
+//하지만 예상된 최적값이 최적이 아닌경우가 있었나보다.
+//그래서 경우가 될 수 있는 배열을 모두 돌려서 출력하게끔 했다.(성공!)
+//문제에서 하라는대로 순서대로 코드를 짜다보니까 문제가 발생하는것같다.
+//브루트 포스문제는 정말 브루트하게 컴퓨터를 노가다 시켜야하는데 자꾸 착하게 일빼줄려다가 문제가 발생한다.
+
+
+#include <iostream>
+using namespace std;
+int main()
+{
+    int i, j;
+    int n;
+    cin >> n;
+    char color[200001] = { 0 };
+    //입력
+    for (i = 0; i < n; i++) {
+        cin >> color[i];
+    }
+    //처음 3가지 값중에 경우가 될 수 있는 배열을 미리 만들어놓음.
+    char s[6][4] = { "RGB" ,"RBG","GRB","GBR","BGR","BRG" };
+
+    //최적값과 최적값 인덱스를 저장
+    int minCnt = n;
+    int idx = 0;
+    for (i = 0; i < 6; i++) {
+        int cnt = 0;
+        for (j = 0; j < n; j++) {
+            if (s[i][j % 3] != color[j]) {
+                cnt++;
+            }
+        }
+        if (minCnt > cnt) {
+            minCnt = cnt;
+            idx = i;
+        }
+    }
+    //color 배열자체를 최적값으로 변경
+    for (i = 0; i < n; i++) {
+        color[i] = s[idx][i % 3];
+    }
+
+    //출력
+    cout << minCnt << '\n';
+    for (i = 0; i < n; i++)
+        cout << color[i];
+    return 0;
+}
