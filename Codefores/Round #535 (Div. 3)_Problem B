@@ -1,0 +1,44 @@
+//http://codeforces.com/contest/1108/problem/B
+//찾아야 하는 두 수의 약수들이 쭉 입력된다.
+//입력값을 보고 두 수를 찾는다.
+//찾아야하는 두 수는 max, max2로 변수이름 설정.
+//sort를 해서 max값을 찾고 max2는 공약수로 초기화한다(이부분이 키포인트)
+//max로 안나누어떨어지는 max2보다 큰 수가 있으면 바꿔준다.
+
+#include <iostream>
+#include <algorithm>
+using namespace std;
+int main()
+{
+    int n;
+    cin >> n;
+    int i, j;
+    int d[129] = { 0 };
+    int max = 1;
+    int max2 = 1;
+    //input
+    for (i = 0; i < n; i++) {
+        cin >> d[i];
+    }
+    //sort, max
+    sort(d, d + n);
+    max = d[n - 1];
+    //max2, 일단 공약수로 초기화
+    for (i = 0; i < n; i++) {
+        if (i + 1 < n && d[i] == d[i + 1]) {
+            max2 = d[i];
+            i++;
+        }
+    }
+
+    for (i = 0; i < n; i++) {
+        if (max%d[i] != 0) {
+            //나눠 안떨어지는 더 큰 수가 있으면 바꿔준다.
+            if (max2 < d[i])
+                max2 = d[i];
+        }
+    }
+
+    cout << max << ' ' << max2;
+    return 0;
+}
