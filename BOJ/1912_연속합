@@ -1,0 +1,26 @@
+//Dp문제 , 피라미드 구조를 생각.
+
+
+#include <iostream>
+using namespace std;
+
+int arr[100000];
+int M[100000]; //max부분합
+
+int main() {
+    int n;
+    cin>>n;
+    int i;
+    for(i=0;i<n;i++){
+        cin>>arr[i];
+    }
+    M[0]=arr[0];
+    int m=arr[0];
+    for(i=1;i<n;i++){
+        M[i] = max(M[i-1]+arr[i],arr[i]);
+        if(m<M[i])
+            m=M[i];
+    }
+    cout<<m;
+    return 0;
+}
