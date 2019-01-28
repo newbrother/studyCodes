@@ -1,6 +1,51 @@
+//세번쨰 시도한 방법 2차원 벡터 vector<vector<string>> 만들어서 메모이제이션해서 1바퀴 돌리는것을 줄였다.
+//속도는 두번째 방법과 큰차이는 없다. (1%~30% 향상을 보였다)
+//아마 2차원 벡터를 미리 큰사이즈(100000)으로 초기화 해놓지 않고 pushback하면서 구현했기 때문일것같다.
+
+#include <string>
+#include <vector>
+#include <cstring>
+#include <map>
+using namespace std;
+
+vector<string> split(string& str){
+    vector<string> value;
+    char tmp[101];
+    strcpy(tmp,str.c_str());
+    char* ptr = strtok(tmp," ");
+    while(ptr!=NULL){
+        string str1  = string(ptr);
+        ptr = strtok(NULL," ");
+        value.push_back(str1);
+    }
+    return value;
+}
+
+vector<vector<string>> str;
+
+vector<string> solution(vector<string> record) {
+    vector<string> answer;
+    map<string,string> m;
+    for(int i=0;i<record.size();i++){
+        str.push_back(split(record[i]));
+        if(record[i][0] != 'L'){
+            m[str[i][1]]=str[i][2];
+        }
+    }
+    for(int i=0;i<record.size();i++){
+        if(record[i][0]=='E'){
+            answer.push_back(m[str[i][1]] + "님이 들어왔습니다.");
+        }
+        else if(record[i][0]=='L'){
+            answer.push_back(m[str[i][1]] + "님이 나갔습니다.");
+        }
+    }
+    return answer;
+}
+
+
 //두번쨰 시도한 방법
 //cstring 라이브러리를 통해 c함수인 strtok을 사용해서 문자열을 잘라내는 방법이다.(코딩도장참고)
-//2차원 벡터 vector<vector<string>>을 만들어서 저장한다음에 해보면 어떨까?
 //첫번째 시도한방법(아래있음) 보다 속도가 빨랐다. (이방법이 100ms면 첫방법은 175ms)
 
 #include <string>
