@@ -1,0 +1,43 @@
+//stringstream 과 map 사용방법을 익힐 수 있는 시간이었다.
+
+
+#include <string>
+#include <vector>
+#include <map>
+#include <sstream>
+using namespace std;
+
+vector<string> solution(vector<string> record) {
+    vector<string> answer;
+    map<string,string> m;
+    
+    for(int i=0;i<record.size();i++){
+        stringstream ss;
+        string tmp1,tmp2,tmp3;
+        ss.str(record[i]);
+        ss>>tmp1;
+        ss>>tmp2;
+        ss>>tmp3;
+        if(record[i][0]!='L'){
+            m[tmp2]=tmp3;
+        }
+    }
+    for(int i=0;i<record.size();i++){
+        stringstream ss;
+        string tmp1,tmp2,tmp3;
+        ss.str(record[i]);
+        ss>>tmp1;
+        ss>>tmp2;
+        ss>>tmp3;
+        string str = m[tmp2];
+        if(record[i][0]=='E'){
+            str += "님이 들어왔습니다.";
+            answer.push_back(str);
+        }
+        else if(record[i][0]=='L'){
+            str += "님이 나갔습니다.";
+            answer.push_back(str);
+        }
+    }
+    return answer;
+}
