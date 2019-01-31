@@ -1,0 +1,48 @@
+#include <iostream>
+using namespace std;
+ 
+char luckey[101][9];
+int money[101];
+ 
+int check(char* lotto, int n){
+    for(int j=0;j<n;j++){
+        int cnt=0;
+        for(int i=0;i<8;i++){
+            if(luckey[j][i] != '*'){
+                if(luckey[j][i] != lotto[i]){
+                    break;
+                }
+                cnt++;
+            }
+            else{
+                cnt++;
+            }
+        }
+        if(cnt==8){
+            return money[j];
+        }
+    }
+    return 0;
+}
+ 
+int main() {
+    int T;
+    cin>>T;
+    for(int tc=1;tc<=T;tc++){
+        int n,m;
+        cin>>n>>m;
+        int i;
+        for(i=0;i<n;i++){
+            cin>>luckey[i]>>money[i];
+        }
+        char lotto[9];
+        int sum=0;
+        for(i=0;i<m;i++){
+            cin>>lotto;
+            sum+=check(lotto,n);
+        }
+        cout<<"#"<<tc<<' '<<sum<<'\n';
+    }
+     
+    return 0;
+}
