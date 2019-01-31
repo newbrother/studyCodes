@@ -1,0 +1,94 @@
+#include <iostream>
+#include <map>
+#include <string>
+using namespace std;
+map<string,int> m = {
+    {"yotta",24},
+    {"zetta",21},
+    {"exa",18},
+    {"peta", 15},
+    {"tera", 12},
+    {"giga",9},
+    {"mega",6},
+    {"kilo",3},
+    {"hecto",2},
+    {"deca",1},
+    {"deci",-1},
+    {"centi",-2},
+    {"milli",-3},
+    {"micro",-6},
+    {"nano",-9},
+    {"pico",-12},
+    {"femto",-15},
+    {"ato",-18},
+    {"zepto",-21},
+    {"yocto",-24}
+};
+int main() {
+    int T;
+    cin>>T;
+    for(int tc=1;tc<=T;tc++){
+        cout<<"#"<<tc<<' ';
+         
+        string inputNumString;
+        cin>>inputNumString;
+        string inputStr,unitName;
+        cin>>inputStr;
+        //num은 10의 승수를 저장.
+        int num=0;
+         
+        //map에서 찾는데 실패한경우, 접두사 생략되고 단위가 나온것.
+        //찾은 경우는 unitName을 입력받고 찾은 밸류를 num에 저장.
+        auto it = m.find(inputStr);
+        if(it==m.end()){
+            unitName = inputStr;
+        }else{
+            num+=m[inputStr];
+            cin>>unitName;
+        }
+         
+        //0으로 시작하면 소수라고 조건에있다.
+        int flag=0;
+        if(inputNumString[0]=='0'){
+            num--;
+            for(int i=2;i<inputNumString.size();i++){
+                if(flag>0){
+                    if(flag==1){
+                        cout<<'.';
+                        flag++;
+                    }
+                    cout<<inputNumString[i];
+                }
+                else if(inputNumString[i]!='0'){
+                    cout<<inputNumString[i];
+                    flag=1;
+                }else{
+                    num--;
+                }
+            }
+        }else{
+            //소수가 아니면 일단 무조건 num++이다.
+            if(inputNumString.size()==1)
+                cout<<inputNumString[0];
+            else
+                cout<<inputNumString[0]<<'.';
+             
+            for(int i=1;i<inputNumString.size();i++){
+                //소수점이 아니며, 아직 소수점이 안나온 상황
+                //소수점 나올떄까지 num++한다.
+                if(inputNumString[i]!='.' && flag==0){
+                    cout<<inputNumString[i];
+                    num++;
+                }else if(inputNumString[i] != '.'){
+                    cout<<inputNumString[i];
+                }else{ //'.'인 경우
+                    flag=1;
+                }
+            }
+        }
+         
+        cout<<" * 10^"<<num<<' '<<unitName<<'\n';
+    }
+     
+    return 0;
+}
