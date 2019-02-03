@@ -1,0 +1,30 @@
+//와 큰수문제는 정말 어렵다...
+//백준 인강에서 나머지연산에 분배법칙? 같은거 적용된다고 해서 
+//그 방법으로 접근해봤는데 이 방법이 정답인것같다. 내가 소요시간도 작다.
+//곱하기 분배도 해보고 더하기 분배도 해보고 예제 출력값 나올때까지 했다...(확실히 이해한건 아님!)
+
+#include <algorithm>
+#include <vector>
+#include <string>
+#include <iostream>
+using namespace std;
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    
+    long long ans = 0;
+    string str;
+    cin >> str;
+    int len = str.length();
+    const int birth = 20000303;
+    const int tens = 100000000;
+    long long idx = 0;
+    for (int i = 0; i < len; i++) {
+        string tmp;
+        int num = str[i]-'0';
+        ans = (ans * 10 + num) % birth;
+    }
+    cout << ans << '\n';
+}
