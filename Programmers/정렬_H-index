@@ -1,0 +1,19 @@
+https://programmers.co.kr/learn/courses/30/lessons/42747
+//이쁘게 잘짠것같다.
+
+#include <string>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int solution(vector<int> citations) {
+    int answer = 0;
+    vector<int> v = citations;
+    sort(v.begin(),v.end());
+    int n=v.size();
+    for(int i=1;i<=n;i++){
+        if(v[n-i] >= i)
+            answer=i;
+    }
+    return answer;
+}
