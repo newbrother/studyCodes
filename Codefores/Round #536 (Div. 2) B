@@ -1,0 +1,77 @@
+//http://codeforces.com/contest/1106/problem/B
+//원래 우선순위 큐 없이 풀었다가 시간초과났었던 문제.
+//이렇게해서 800ms나왔다 O(m+nlogn) 문제라서 100ms~1000ms까지 다양했다.
+//이문제에서 하나 배운것은
+//long long에 int*int를 계속 더해주려면,
+//money = 1LL * a[t] * c[t]; 
+//이런식으로 반드시 맨앞에 1LL을 곱해줘야한다는것이다(맨뒤에해도안된다)
+
+
+#include <iostream>
+#include <algorithm>
+#include <queue>
+#include <functional>
+using namespace std;
+#define ll long long
+//최소가격 큐
+priority_queue < pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> q;
+int main() {
+
+    int n, m; //n은 음식종류수, m은 사람수
+    cin >> n >> m;
+    int i, j;
+    //요리의 남은 양
+    int a[100001] = { 0 };
+    for (i = 1; i <= n; i++) {
+        cin >> a[i];
+    }
+    //각 요리의 비용
+    int c[100001] = { 0 };
+    for (i = 1; i <= n; i++) {
+        cin >> c[i];
+        q.push({ c[i],i });
+    }
+    //고객의 주문
+    //종류 , 양
+    for (i = 0; i < m; i++) {
+        int t, d;
+        cin >> t >> d;
+        ll money = 0;
+        if (d <= a[t]) {
+            a[t] -= d;
+            money = 1LL*d*c[t];
+            cout << money <<'\n';
+        }
+        else {
+            bool flag = 0;
+            money = 1LL * a[t] * c[t];
+            d -= a[t];
+            a[t] = 0;
+            while (!q.empty()) {
+                while (!q.empty() && a[q.top().second] == 0) {
+                    q.pop();
+                }
+                if (q.empty())
+                    break;
+                pair<int, int> p = q.top();
+                if (d <= a[p.second]) {
+                    a[p.second] -= d;
+                    money += 1LL * d * p.first;
+                    flag = true;
+                    cout << money << '\n';
+                    break;
+                }
+                else {
+                    money += 1LL * a[p.second] * p.first;
+                    d -= a[p.second];
+                    a[p.second] = 0;
+                    q.pop();
+                }
+            }
+            if (!flag) {
+                cout << 0<<'\n';
+            }
+        }
+    }
+    return 0;
+}
