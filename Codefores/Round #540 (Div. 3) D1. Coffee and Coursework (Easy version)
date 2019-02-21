@@ -1,0 +1,38 @@
+//http://codeforces.com/contest/1118/problem/D1
+//대회진행중에는 dfs로 풀려고 시도했다. 시간초과가 났다.
+//풀면서도 아 그냥 더 간단한 방법이 있을것같다 앞에서 순서대로 할필요없다고 느낌은 왔는데 시간이없었다.
+//그냥 sort한뒤 2중 반복이면 되는 간단한 구현문제였다.
+//sum+=max(0,arr[j]-j/i) 이식이 핵심이고, 인덱싱용도의 i를 추가하고 j/i를 빼준다라는 부분이 이해하기 어려웠다.
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <functional>
+using namespace std;
+int arr[100];
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    int n, m;
+    cin >> n >> m;
+    int sum = 0;
+    for (int i = 0; i < n; i++) {
+        cin >> arr[i];
+    }
+    sort(arr, arr + n, greater<int>());
+
+    for (int i = 1; i <= n; i++) {
+        int sum = 0;
+        for (int j = 0; j < n; j++) {
+            sum += max(0, arr[j] - j/i);
+        }
+        if (sum >= m) {
+            cout << i;
+            return 0;
+        }
+    }
+    cout << -1;
+    return 0;
+}
