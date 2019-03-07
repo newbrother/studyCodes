@@ -1,0 +1,110 @@
+//와 아이디어가 잘 안떠올라서 한 20분 고민하다가 바로 짜봤는데
+//한번에 패스했다~_~ 
+
+
+#include <iostream>
+#include <algorithm>
+#include <functional>
+#include <cstring>
+#include <queue>
+#include <vector>
+using namespace std;
+
+int ans = 987654321;
+int ansCores = 0;
+int n;
+int arr[12][12] = { 0 };
+vector<pair<int, int> > v;
+
+const int dx[] = { 0,-1,0,1 };
+const int dy[] = { 1, 0,-1,0 };
+
+//연결코어의수, 전선길이의 합
+//경우 : 4방향+연결안하는경우, 전체탐색
+void dfs(int idx, int cores, int lines) {
+    //종료조건
+    if (idx == v.size()) {
+        if (cores > ansCores) {
+            ansCores = cores;
+            ans = lines;
+            return;
+        }
+        else if (cores == ansCores) {
+            //갱신
+            if (lines < ans) {
+                ans = lines;
+            }
+            return;
+        }
+        else {
+            return;
+        }
+    }
+    int x = v[idx].first;
+    int y = v[idx].second;
+    //4방향
+    //백업
+    int backup[12][12] = { 0 };
+    memcpy(backup, arr, sizeof(arr));
+    for (int dir = 0; dir < 4; dir++) {
+        int nx = x + dx[dir];
+        int ny = y + dy[dir];
+        int flag = 1;
+        int sum = 1;
+        while (1) {
+            //못가
+            if (arr[nx][ny] == 1) {
+                flag = 0;
+                break;
+            }
+            arr[nx][ny] = 1;
+            //가
+            if (nx == 0 || nx == n - 1 || ny == 0 || ny == n - 1) {
+                break;
+            }
+            nx += dx[dir];
+            ny += dy[dir];
+            sum++;
+        }
+        if (flag) {
+            dfs(idx + 1, cores + 1, lines + sum);
+        }
+        //롤백
+        memcpy(arr, backup, sizeof(arr));
+    }
+    //연결안하는경우
+    dfs(idx + 1, cores, lines);
+    return;
+}
+
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    //1.최대한 많은 코어 연결, 2.전선길이의 합이 최소
+    int T;
+    cin >> T;
+    for (int tc = 1; tc <= T; tc++) {
+        //초기화
+        ans = 987654321;
+        ansCores = 0;
+        memset(arr, 0, sizeof(arr));
+        v.clear();
+
+        cin >> n;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                cin >> arr[i][j];
+                if (arr[i][j] == 1 && !(i==0 || i==n-1 || j==0 || j==n-1)) {
+                    v.push_back({ i, j });
+                }
+            }
+        }
+        dfs(0,0,0);
+        
+        cout << '#' << tc << ' ' << ans << '\n';
+    }
+
+    return 0;
+}
