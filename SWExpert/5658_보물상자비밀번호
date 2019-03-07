@@ -1,0 +1,77 @@
+//중복처리는 set으로 했다. set의 count함수 유용하네!
+//그냥 문제그대로 구현했는데, 숫자만들떄 그냥 한칸씩 쭉 가면서 만들면 더 간단하고 효율적일것같다.
+
+#include <iostream>
+#include <algorithm>
+#include <functional>
+#include <cstring>
+#include <queue>
+#include <vector>
+#include <set>
+using namespace std;
+
+char input[28];
+int numbers[28];
+
+int cal(int a, int b,int div) {
+    int re = 0;
+    for (int i = div-1; i >= 0; i--) {
+        int idx = (a + b*div + (div-i-1)) % (div * 4);
+        int tmp = 0;
+        if (input[idx] >= 'A') {
+            tmp = input[idx]-'A'+10;
+            for (int j = 0; j < i; j++) {
+                tmp *= 16;
+            }
+        }
+        else {
+            tmp = input[idx] - '0';
+            for (int j = 0; j < i; j++) {
+                tmp *= 16;
+            }
+        }
+        re += tmp;
+    }
+    return re;
+}
+
+int main()
+{
+    /*
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    */
+    int T;
+    cin >> T;
+    for (int tc = 1; tc <= T; tc++) {
+        memset(input, 0, sizeof(input));
+        memset(numbers, 0, sizeof(numbers));
+        int n, k;//8~28
+        cin >> n >> k;
+        scanf("\n%c", &input[0]);
+        for (int i = 1; i < n; i++) {
+            scanf("%1c", &input[i]);
+        }
+        //div만큼씩 읽는다.
+        int div = n / 4;
+        //i:회전, j:div만큼씩읽음(offset)
+        for (int i = 0; i < div; i++) {
+            for (int j = 0; j < 4; j++) {
+                numbers[i * 4 + j] = cal(i, j, div);
+            }
+        }
+        sort(numbers, numbers + n, greater<int>());
+        set<int> s;
+        for (int i = 0; i < k; i++) {
+            //중복이면 k--;
+            if (s.count(numbers[i]) >= 1)
+                k++;
+            else
+                s.insert(numbers[i]);
+        }
+        cout <<'#'<<tc<<' '<< numbers[k - 1] << '\n';
+    }
+    
+    return 0;
+}
