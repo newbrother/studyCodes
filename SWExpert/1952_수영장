@@ -1,0 +1,79 @@
+//3개월확인만 하면되는데, dfs안쓰고 처음부터 돌리다가 반례가 있어서 그냥 dfs했다. 속편하다.
+//그래도 오래생각하게되었더니 최적화에 가까운 코딩이 된것같다. 속도가 매우빠르다.
+
+#include <iostream>
+#include <algorithm>
+#include <functional>
+#include <cstring>
+#include <queue>
+#include <vector>
+using namespace std;
+
+//1일 1달 3달 1년
+int d, m, m3, y;
+int c[14];
+int ans = 0;
+int numMax = 0;
+
+void dfs(int month,int num) {
+    if (month > 11) {
+        if (numMax < num)
+            numMax = num;
+        return;
+    }
+    //3달이용권씀
+    if(c[month] + c[month + 1] + c[month + 2] - m3 > 0)
+        dfs(month+3, num + c[month] + c[month+1]+c[month+2] - m3);
+    //3달이용권안씀
+    dfs(month + 1, num);
+}
+
+int main()
+{
+    
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    
+    int T;
+    cin >> T;
+    for (int tc = 1; tc <= T; tc++) {
+        ans = 0;
+        numMax = 0;
+        memset(c, 0, sizeof(c));
+        
+        cin >> d >> m >> m3 >> y;
+        for (int i = 0; i < 12; i++) {
+            int tmp;
+            cin >> tmp;
+            if (tmp == 0)
+                c[i] = tmp;
+            else if (tmp > 0 && (tmp*d < m)) {
+                c[i] = tmp*d;
+            }
+            else{
+                c[i] = m;
+            }
+        }
+
+        for (int i = 0; i < 12; i++) {
+            ans += c[i];
+        }
+        //3개월짜리 확인
+        dfs(0,0);
+        ans -= numMax;
+        
+        if (ans > y)
+            ans = y;
+
+        /*
+        for (int i = 0; i < 12; i++) {
+            cout << c[i] << ' ';
+        }
+        cout << '\n';
+        */
+        cout <<'#'<<tc<<' '<<ans<<'\n';
+    }
+    
+    return 0;
+}
